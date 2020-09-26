@@ -1,4 +1,4 @@
-package codingchallenge;
+package com.netcetera.codingchallenge;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

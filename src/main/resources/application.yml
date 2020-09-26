@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./db/datastore
+  #    data-username: default
+  #    data-password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+      path: /db
+server:
+  port: 8080
+jwt:
+  secret: SuperSecretPassword
+  token:
+    validityInMs: 3600000
