@@ -53,18 +53,21 @@ class UserServiceImplUnitTest {
 
     @Test
     void addAuthorityToUser() {
-//        final UserAuthority testAuthority = new UserAuthority("testAuthority");
-//
-//
-//        this.userService = new UserServiceImpl(this.userRepository, this.userAuthorityRepository, this.passwordEncoder);
-//
-//        this.userService.addAuthorityToUser("testAuthrotiy", "testUser");
-//        final User resultUser = this.userService.getUserByUsername("testUser");
-//        final UserAuthority resultUserAuthority = this.userAuthorityRepository.getOne("testAuthority");
-//
-//        final var authorities = resultUser.getAuthorities();
-//        final List<String> userAuthorities = authorities.stream().map(x -> x.getAuthority()).collect(Collectors.toList());
-//
-//        assertTrue(userAuthorities.contains("testAuthority"));
+        final String testAuthorityId = "testAuthrotiy";
+        final String testUserId = "testUser";
+        final User testUser = User.builder().username("testUser").password("testPassword").build();
+        this.userAuthorityRepository = Mockito.spy(UserAuthorityRepository.class);
+        this.userRepository = Mockito.spy(UserRepository.class);
+        Mockito.when(this.userRepository.existsById(testUserId)).thenReturn(true);
+        Mockito.when(this.userRepository.getOne(testUserId)).thenReturn(testUser);
+        this.userService = new UserServiceImpl(this.userRepository, this.userAuthorityRepository, this.passwordEncoder);
+
+        this.userService.addAuthorityToUser(testAuthorityId, testUserId);
+
+        Mockito.verify(this.userRepository, Mockito.times(1)).existsById(testUserId);
+        Mockito.verify(this.userRepository, Mockito.times(1)).getOne(testUserId);
+        Mockito.verify(this.userAuthorityRepository, Mockito.times(1)).existsById(testAuthorityId);
+        Mockito.verify(this.userAuthorityRepository, Mockito.times(1)).save(Mockito.any());
+        Mockito.verify(this.userRepository, Mockito.times(1)).save(Mockito.any());
     }
 }
