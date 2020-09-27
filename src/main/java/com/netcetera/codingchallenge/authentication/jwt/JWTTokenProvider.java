@@ -1,6 +1,6 @@
 package com.netcetera.codingchallenge.authentication.jwt;
 
-import com.netcetera.codingchallenge.authentication.jwt.api.JWTAuthException;
+import com.netcetera.codingchallenge.authentication.jwt.rest.JWTAuthException;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

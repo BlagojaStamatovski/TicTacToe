@@ -1,6 +1,6 @@
 package com.netcetera.codingchallenge.authentication.jwt;
 
-import com.netcetera.codingchallenge.users.UserServiceImpl;
+import com.netcetera.codingchallenge.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class JWTUserServiceImpl implements UserDetailsService {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {

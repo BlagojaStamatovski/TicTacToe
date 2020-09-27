@@ -1,4 +1,4 @@
-package com.netcetera.codingchallenge.authentication.jwt.api;
+package com.netcetera.codingchallenge.authentication.jwt.rest;
 
 import org.springframework.security.core.AuthenticationException;
 

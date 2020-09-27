@@ -1,4 +1,4 @@
-package com.netcetera.codingchallenge.authentication.jwt.api;
+package com.netcetera.codingchallenge.authentication.jwt.rest;
 
 import com.netcetera.codingchallenge.authentication.jwt.JWTTokenProvider;
 import com.netcetera.codingchallenge.authentication.jwt.JWTUserServiceImpl;
