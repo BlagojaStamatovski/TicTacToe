@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "jwt.token.validityInMs",
+      "type": "java.lang.String",
+      "description": "Description for jwt.token.validityInMs."
+    },
+    {
+      "name": "jwt.secret.keyAlias",
+      "type": "java.lang.String",
+      "description": "Description for jwt.secret.keyAlias."
+    },
+    {
+      "name": "jwt.secret.keyStoreName",
+      "type": "java.lang.String",
+      "description": "Description for jwt.secret.keyStoreName."
+    },
+    {
+      "name": "jwt.secret.keyStoreAlias",
+      "type": "java.lang.String",
+      "description": "Description for jwt.secret.keyStoreAlias."
+    },
+    {
+      "name": "jwt.secret.keyStorePassword",
+      "type": "java.lang.String",
+      "description": "Description for jwt.secret.keyStorePassword."
+    }
+  ]
+}
