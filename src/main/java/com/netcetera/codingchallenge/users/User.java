@@ -4,28 +4,47 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Proxy;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
+@Entity
+@Proxy(lazy = false)
+public class User implements UserDetails, Serializable {
+
+    private static final long serialVersionUID = 7789533246830224722L;
 
     @Id
-    String username;
-    
-    String password;
+    private String username;
+
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private final Set<UserAuthority> userAuthorities = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        final Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+
+        this.userAuthorities.forEach(userAuthority -> {
+            grantedAuthorities.add(new SimpleGrantedAuthority(userAuthority.getName()));
+        });
+
+        return grantedAuthorities;
     }
 
     @Override

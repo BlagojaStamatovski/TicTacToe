@@ -13,6 +13,7 @@ public class UserInitializer implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         this.userService.addNewUser("X", "passwordX");
+        this.userService.addAuthorityToUser("start_game", "X");
         this.userService.addNewUser("O", "passwordO");
     }
-}
+}               

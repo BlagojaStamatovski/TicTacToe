@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl {
     private final UserRepository userRepository;
+    private final UserAuthorityRepository userAuthorityRepository;
     private final PasswordEncoder passwordEncoder;
 
     public void addNewUser(final String username, final String password) {
@@ -25,5 +26,24 @@ public class UserServiceImpl {
 
     public User getUserByUsername(final String username) {
         return this.userRepository.getOne(username);
+    }
+
+    public void addAuthorityToUser(final String userAuthorityId, final String userId) {
+        final User user;
+        final UserAuthority userAuthority;
+
+        if (!this.userRepository.existsById(userId)) {
+            return;
+        } else {
+            user = this.userRepository.getOne(userId);
+        }
+
+        if (!this.userAuthorityRepository.existsById(userAuthorityId)) {
+            this.userAuthorityRepository.save(new UserAuthority(userAuthorityId));
+        }
+
+        userAuthority = this.userAuthorityRepository.getOne(userAuthorityId);
+        user.getUserAuthorities().add(userAuthority);
+        this.userRepository.save(user);
     }
 }
