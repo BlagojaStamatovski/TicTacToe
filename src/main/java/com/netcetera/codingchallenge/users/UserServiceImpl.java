@@ -6,11 +6,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserAuthorityRepository userAuthorityRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public void addNewUser(final String username, final String password) {
         if (this.userRepository.existsById(username)) {
 
@@ -24,10 +25,12 @@ public class UserServiceImpl {
         }
     }
 
+    @Override
     public User getUserByUsername(final String username) {
         return this.userRepository.getOne(username);
     }
 
+    @Override
     public void addAuthorityToUser(final String userAuthorityId, final String userId) {
         final User user;
         final UserAuthority userAuthority;
