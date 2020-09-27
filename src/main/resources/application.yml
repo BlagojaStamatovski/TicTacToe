@@ -21,3 +21,9 @@ jwt:
     keyStorePassword: SuperSecretPassword
   token:
     validityInMs: 3600000
+springdoc:
+  api-docs:
+    path: /api/v1/docs
+  swagger-ui:
+    path: /api/v1/docs-ui.html
+    
