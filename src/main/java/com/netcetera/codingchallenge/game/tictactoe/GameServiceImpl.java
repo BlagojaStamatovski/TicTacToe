@@ -16,12 +16,11 @@ public class GameServiceImpl implements GameService {
     private FieldMarking lastPlayed;
 
     @Override
-    public MoveOutcome startGame() {
+    public MoveOutcome startGame(final GameBoard gameBoard) {
         if (this.gameBoard != null && !this.gameBoard.isOver()) {
             return new MoveOutcome(false, "A game is already in progress.");
         }
-        this.gameBoard = new GameBoardImpl(this.gameBoardSize) {
-        };
+        this.gameBoard = gameBoard;
         this.lastPlayed = null;
         return new MoveOutcome(true, "A new game has been started.");
     }

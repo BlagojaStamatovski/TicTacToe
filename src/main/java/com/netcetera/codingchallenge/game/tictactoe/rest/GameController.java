@@ -1,5 +1,6 @@
 package com.netcetera.codingchallenge.game.tictactoe.rest;
 
+import com.netcetera.codingchallenge.game.tictactoe.GameBoardImpl;
 import com.netcetera.codingchallenge.game.tictactoe.GameService;
 import com.netcetera.codingchallenge.game.tictactoe.MoveOutcome;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class GameController {
     @PostMapping("/start")
     @PreAuthorize("hasAuthority('START_GAME')")
     public ResponseEntity<String> startGame() {
-        final MoveOutcome moveOutcome = this.gameService.startGame();
+        final MoveOutcome moveOutcome = this.gameService.startGame(new GameBoardImpl(3));
         return this.handleMoveOutcome(moveOutcome);
     }
 
