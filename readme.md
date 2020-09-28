@@ -1,7 +1,7 @@
 # Welcome to TicTacToe!
 
 ## Project structure
-This project is built using Apache Maven. To import this project, simply clone the repository and import the `pom.xml` 
+This project is built using Apache Maven. To run this project, simply clone the repository and import the `pom.xml` 
 file into your favorite IDE.
 
 ### Important features:
