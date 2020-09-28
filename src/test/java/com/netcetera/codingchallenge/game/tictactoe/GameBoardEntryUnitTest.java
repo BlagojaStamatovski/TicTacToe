@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameBoardEntryUnitTest {
 
-    private GameBoardEntry entry;
+    GameBoardEntry entry;
 
     @BeforeEach
     void setUp() {
@@ -66,9 +66,9 @@ class GameBoardEntryUnitTest {
     void testEquals() {
         final GameBoardEntry one = new GameBoardEntryImpl();
         final GameBoardEntry other = new GameBoardEntryImpl();
-        assertTrue(one.equals(other));
+        assertEquals(one, other);
 
         other.mark(FieldMarking.O);
-        assertFalse(one.equals(other));
+        assertNotEquals(one, other);
     }
 }

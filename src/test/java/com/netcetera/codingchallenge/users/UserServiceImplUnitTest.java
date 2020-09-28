@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserServiceImplUnitTest {
 
@@ -69,5 +71,23 @@ class UserServiceImplUnitTest {
         Mockito.verify(this.userAuthorityRepository, Mockito.times(1)).existsById(testAuthorityId);
         Mockito.verify(this.userAuthorityRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(this.userRepository, Mockito.times(1)).save(Mockito.any());
+    }
+
+    @Test
+    void getUserDetails() {
+        final User testUser = User.builder().username("testUser").password("testPassword").build();
+        Mockito.when(this.userRepository.getOne("testUser")).thenReturn(testUser);
+        this.userService = new UserServiceImpl(this.userRepository, this.userAuthorityRepository, this.passwordEncoder);
+
+        assertEquals(testUser, this.userService.loadUserByUsername("testUser"));
+    }
+
+    @Test
+    void getInvalidUserDetails() {
+        Mockito.when(this.userRepository.getOne("testUser")).thenReturn(null);
+        this.userService = new UserServiceImpl(this.userRepository, this.userAuthorityRepository, this.passwordEncoder);
+
+
+        assertThrows(UsernameNotFoundException.class, () -> this.userService.loadUserByUsername("testUser"));
     }
 }

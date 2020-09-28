@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameBoardImplUnitTest {
 
-    private GameBoard gameBoard;
+    GameBoard gameBoard;
 
     @BeforeEach
     void setUp() {

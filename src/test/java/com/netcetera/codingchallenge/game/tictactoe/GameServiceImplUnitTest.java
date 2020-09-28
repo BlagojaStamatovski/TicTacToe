@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameServiceImplUnitTest {
     @Mock
-    private UserService userService;
+    UserService userService;
     @Mock
-    private Principal mockPrincipalX;
+    Principal mockPrincipalX;
     @Mock
-    private Principal mockPrincipalO;
+    Principal mockPrincipalO;
 
-    private GameService gameService;
+    GameService gameService;
 
 
     @BeforeEach
