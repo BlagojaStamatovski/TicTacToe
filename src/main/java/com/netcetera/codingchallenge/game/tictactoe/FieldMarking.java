@@ -1,6 +1,6 @@
 package com.netcetera.codingchallenge.game.tictactoe;
 
-public enum FieldState {
+public enum FieldMarking {
     X,
     O,
     EMPTY

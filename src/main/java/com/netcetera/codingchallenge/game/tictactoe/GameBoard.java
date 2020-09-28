@@ -3,21 +3,23 @@ package com.netcetera.codingchallenge.game.tictactoe;
 import lombok.Getter;
 
 public class GameBoard implements StringDisplayableGameBoard {
-    private final GameBoardEntry[][] state;
+    private final GameBoardEntry[][] board;
     private final int size;
     private int movesMade = 0;
     @Getter
-    private FieldState winner;
+    private GameState state;
 
     public GameBoard(final int size) {
         this.size = size;
-        this.state = new GameBoardEntry[this.size][this.size];
+        this.board = new GameBoardEntry[this.size][this.size];
 
         for (int x = 0; x < this.size; x++) {
             for (int y = 0; y < this.size; y++) {
-                this.state[x][y] = new GameBoardEntry();
+                this.board[x][y] = new GameBoardEntry();
             }
         }
+
+        this.state = GameState.IN_PROGRESS;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class GameBoard implements StringDisplayableGameBoard {
                 if (x > 0 && x < this.size) {
                     stringBuilder.append("|");
                 }
-                stringBuilder.append(this.state[x][y].toString());
+                stringBuilder.append(this.board[x][y].toString());
             }
             stringBuilder.append("\n");
         }
@@ -55,17 +57,18 @@ public class GameBoard implements StringDisplayableGameBoard {
     public boolean isOver() {
         if (this.movesMade < this.size * 2 - 1) {
             return false;
-        } else if (this.movesMade == this.size * this.size) {
+        } else if (!this.isWon() && this.movesMade == this.size * this.size) {
+            this.state = GameState.DRAW;
             return true;
         } else {
-            return this.isWon();
+            return false;
         }
     }
 
-    public boolean makeMove(final int x, final int y, final FieldState fieldState) {
+    public boolean makeMove(final int x, final int y, final FieldMarking fieldMarking) {
         if (x >= 0 && y >= 0 && x < this.size && y < this.size) {
             this.movesMade++;
-            return this.state[x][y].mark(fieldState);
+            return this.board[x][y].mark(fieldMarking);
         }
         return false;
     }
@@ -81,7 +84,7 @@ public class GameBoard implements StringDisplayableGameBoard {
             final GameBoardEntry[] vertical = new GameBoardEntry[this.size];
 
             for (int y = 0; y < this.size; y++) {
-                vertical[y] = this.state[iterator][y];
+                vertical[y] = this.board[iterator][y];
             }
             if (this.checkSequence(vertical)) {
                 return true;
@@ -96,7 +99,7 @@ public class GameBoard implements StringDisplayableGameBoard {
         final boolean foundWinner = false;
         int iterator = 0;
         while (iterator < this.size) {
-            final GameBoardEntry[] horizontal = this.state[iterator];
+            final GameBoardEntry[] horizontal = this.board[iterator];
             if (this.checkSequence(horizontal)) {
                 return true;
             }
@@ -110,8 +113,8 @@ public class GameBoard implements StringDisplayableGameBoard {
         final GameBoardEntry[] firstDiagonal = new GameBoardEntry[this.size];
         final GameBoardEntry[] secondDiagonal = new GameBoardEntry[this.size];
         for (int i = 0; i < this.size; i++) {
-            firstDiagonal[i] = this.state[i][i];
-            secondDiagonal[i] = this.state[i][this.size - 1 - i];
+            firstDiagonal[i] = this.board[i][i];
+            secondDiagonal[i] = this.board[i][this.size - 1 - i];
         }
         if (this.checkSequence(firstDiagonal) || this.checkSequence(secondDiagonal)) {
             return true;
@@ -123,21 +126,25 @@ public class GameBoard implements StringDisplayableGameBoard {
     private boolean checkSequence(final GameBoardEntry[] sequence) {
         boolean matching = false;
 
-        final FieldState first = sequence[0].getFieldState();
-        if (first == FieldState.EMPTY) {
+        final FieldMarking first = sequence[0].getFieldMarking();
+        if (first == FieldMarking.EMPTY) {
             return false;
         }
 
         int iterator = 1;
         while (iterator < sequence.length) {
-            if ((sequence[iterator].getFieldState() == first)) {
+            if ((sequence[iterator].getFieldMarking() == first)) {
                 matching = true;
             } else {
                 return false;
             }
             iterator++;
         }
-        this.winner = first;
+        if (first.equals(FieldMarking.O)) {
+            this.state = GameState.WINNER_O;
+        } else {
+            this.state = GameState.WINNER_X;
+        }
         return matching;
     }
 }

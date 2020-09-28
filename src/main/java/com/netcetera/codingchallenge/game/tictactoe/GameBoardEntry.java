@@ -10,23 +10,23 @@ public class GameBoardEntry implements Serializable {
     private static final long serialVersionUID = 5638513410322147931L;
 
     @Getter
-    private FieldState fieldState = FieldState.EMPTY;
+    private FieldMarking fieldMarking = FieldMarking.EMPTY;
 
-    public boolean mark(final FieldState fieldState) {
+    public boolean mark(final FieldMarking fieldMarking) {
         if (!this.isPlayed()) {
-            this.fieldState = fieldState;
+            this.fieldMarking = fieldMarking;
             return true;
         }
         return false;
     }
 
     private boolean isPlayed() {
-        return !(this.fieldState == FieldState.EMPTY);
+        return !(this.fieldMarking == FieldMarking.EMPTY);
     }
 
     @Override
     public String toString() {
-        switch (this.fieldState) {
+        switch (this.fieldMarking) {
             case O:
                 return "o";
             case X:
