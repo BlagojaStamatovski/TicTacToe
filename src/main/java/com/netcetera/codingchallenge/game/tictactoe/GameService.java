@@ -7,7 +7,5 @@ public interface GameService {
 
     void makeMove(int x, int y, Principal principal);
 
-    FieldState getFieldStateFromPrincipal(Principal principal);
-
     String getGameDisplayState();
 }

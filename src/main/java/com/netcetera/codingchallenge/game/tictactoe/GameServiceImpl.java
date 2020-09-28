@@ -1,6 +1,5 @@
 package com.netcetera.codingchallenge.game.tictactoe;
 
-import com.netcetera.codingchallenge.game.tictactoe.rest.GameException;
 import com.netcetera.codingchallenge.users.User;
 import com.netcetera.codingchallenge.users.UserService;
 import lombok.RequiredArgsConstructor;
@@ -48,8 +47,7 @@ public class GameServiceImpl implements GameService {
         }
     }
 
-    @Override
-    public FieldState getFieldStateFromPrincipal(final Principal principal) {
+    private FieldState getFieldStateFromPrincipal(final Principal principal) {
         final User currentPlayer = this.userService.getUserByUsername(principal.getName());
         final String username = currentPlayer.getUsername();
         if (username.equals("X")) {
