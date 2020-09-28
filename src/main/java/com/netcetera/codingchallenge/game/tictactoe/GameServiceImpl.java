@@ -32,7 +32,6 @@ public class GameServiceImpl implements GameService {
         }
 
         if (this.gameBoard.isOver()) {
-            final FieldState winner = this.gameBoard.getWinner();
             throw new GameException("Game has already ended. Please start a new game");
         } else {
             final FieldState markWith = this.getFieldStateFromPrincipal(principal);
