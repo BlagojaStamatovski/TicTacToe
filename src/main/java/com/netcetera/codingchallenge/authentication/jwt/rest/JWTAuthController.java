@@ -1,7 +1,7 @@
 package com.netcetera.codingchallenge.authentication.jwt.rest;
 
 import com.netcetera.codingchallenge.authentication.jwt.JWTTokenProvider;
-import com.netcetera.codingchallenge.authentication.jwt.JWTUserServiceImpl;
+import com.netcetera.codingchallenge.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +21,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class JWTAuthController {
 
-    private final JWTUserServiceImpl jwtUserService;
+    private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
 
@@ -33,10 +33,10 @@ public class JWTAuthController {
 
         this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-        final UserDetails userDetails = this.jwtUserService.loadUserByUsername(username);
+        final UserDetails userDetails = this.userService.loadUserByUsername(username);
         final Set<String> authorities = new HashSet<>();
         userDetails.getAuthorities().stream().forEach(grantedAuthority -> authorities.add(grantedAuthority.getAuthority()));
-        final String token = this.jwtTokenProvider.createToken(this.jwtUserService.loadUserByUsername(username).getUsername(), authorities);
+        final String token = this.jwtTokenProvider.createToken(this.userService.loadUserByUsername(username).getUsername(), authorities);
 
         httpResponse.setHeader("Authentication", "Bearer " + token);
         return ResponseEntity.ok(new JWTResponse(token));
