@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class MoveOutcome {
-    boolean valid;
-    String description;
+    private final boolean valid;
+    private final String description;
 }

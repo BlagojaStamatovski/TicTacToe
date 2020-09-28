@@ -1,6 +1,5 @@
 package com.netcetera.codingchallenge.authentication.jwt;
 
-import com.netcetera.codingchallenge.authentication.jwt.rest.JWTAuthException;
 import com.netcetera.codingchallenge.users.User;
 import com.netcetera.codingchallenge.users.UserService;
 import org.junit.jupiter.api.BeforeAll;

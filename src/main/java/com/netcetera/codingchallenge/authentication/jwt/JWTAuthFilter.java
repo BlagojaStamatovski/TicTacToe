@@ -1,6 +1,5 @@
 package com.netcetera.codingchallenge.authentication.jwt;
 
-import com.netcetera.codingchallenge.authentication.jwt.rest.JWTAuthException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
