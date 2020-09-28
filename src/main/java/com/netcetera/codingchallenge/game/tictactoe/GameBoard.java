@@ -4,4 +4,6 @@ public interface GameBoard {
     boolean isOver();
 
     boolean makeMove(int x, int y, FieldMarking fieldMarking);
+
+    GameState getState();
 }

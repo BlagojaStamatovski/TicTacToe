@@ -15,7 +15,7 @@ public class GameBoardImpl implements StringDisplayableGameBoard, GameBoard {
 
         for (int x = 0; x < this.size; x++) {
             for (int y = 0; y < this.size; y++) {
-                this.board[x][y] = new GameBoardEntry();
+                this.board[x][y] = new GameBoardEntryImpl();
             }
         }
 
@@ -58,11 +58,14 @@ public class GameBoardImpl implements StringDisplayableGameBoard, GameBoard {
     public boolean isOver() {
         if (this.movesMade < this.size * 2 - 1) {
             return false;
-        } else if (!this.isWon() && this.movesMade == this.size * this.size) {
-            this.state = GameState.DRAW;
-            return true;
         } else {
-            return false;
+            final boolean won = this.isWon();
+            if (!won && this.movesMade == this.size * this.size) {
+                this.state = GameState.DRAW;
+                return true;
+            } else {
+                return won;
+            }
         }
     }
 

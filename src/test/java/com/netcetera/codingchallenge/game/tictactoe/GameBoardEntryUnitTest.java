@@ -11,7 +11,7 @@ class GameBoardEntryUnitTest {
 
     @BeforeEach
     void setUp() {
-        this.entry = new GameBoardEntry();
+        this.entry = new GameBoardEntryImpl();
     }
 
     @Test
@@ -39,28 +39,33 @@ class GameBoardEntryUnitTest {
     }
 
     @Test
+    void testGetFieldMarking() {
+        assertTrue(this.entry.getFieldMarking() == FieldMarking.EMPTY);
+    }
+
+    @Test
     void getFieldState() {
         assertNotNull(this.entry.getFieldMarking());
     }
 
     @Test
     void testToString() {
-        final GameBoardEntry x = new GameBoardEntry();
+        final GameBoardEntry x = new GameBoardEntryImpl();
         x.mark(FieldMarking.X);
         assertEquals(x.toString(), "x");
 
-        final GameBoardEntry o = new GameBoardEntry();
+        final GameBoardEntry o = new GameBoardEntryImpl();
         o.mark(FieldMarking.O);
         assertEquals(o.toString(), "o");
 
-        final GameBoardEntry empty = new GameBoardEntry();
+        final GameBoardEntry empty = new GameBoardEntryImpl();
         assertEquals(empty.toString(), " ");
     }
 
     @Test
     void testEquals() {
-        final GameBoardEntry one = new GameBoardEntry();
-        final GameBoardEntry other = new GameBoardEntry();
+        final GameBoardEntry one = new GameBoardEntryImpl();
+        final GameBoardEntry other = new GameBoardEntryImpl();
         assertTrue(one.equals(other));
 
         other.mark(FieldMarking.O);
