@@ -1,5 +1,6 @@
 package com.netcetera.codingchallenge.game.tictactoe.rest;
 
+import com.netcetera.codingchallenge.game.tictactoe.GameException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

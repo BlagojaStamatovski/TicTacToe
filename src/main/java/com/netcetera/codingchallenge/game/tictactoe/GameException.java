@@ -1,4 +1,4 @@
-package com.netcetera.codingchallenge.game.tictactoe.rest;
+package com.netcetera.codingchallenge.game.tictactoe;
 
 public class GameException extends RuntimeException {
     private static final long serialVersionUID = -3601311384412919508L;
