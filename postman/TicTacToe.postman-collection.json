@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "33933f1f-6fb6-4c09-b1c0-64a4ba3b9736",
+		"name": "TicTacToe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "X starts game",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "059697a8-42f1-4a55-82f5-2b925abfc90c",
+						"exec": [
+							"var Header = require('postman-collection').Header\r",
+							"\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:8080/authenticate',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type:application/json',\r",
+							"  body: {\r",
+							"    mode: 'application/json',\r",
+							"    raw: JSON.stringify(\r",
+							"        {\r",
+							"        \tusername:'X',\r",
+							"        \tpassword:'passwordX'\r",
+							"        })\r",
+							"  }\r",
+							"};\r",
+							"\r",
+							"var getToken = true;\r",
+							"\r",
+							"if (!pm.environment.get('accessTokenExpiry') || \r",
+							"    !pm.environment.get('currentAccessToken')) {\r",
+							"    console.log('Token or expiry date are missing')\r",
+							"} else if (pm.environment.get('accessTokenExpiry') <= (new Date()).getTime()) {\r",
+							"    console.log('Token is expired')\r",
+							"} else {\r",
+							"    getToken = false;\r",
+							"    console.log('Token and expiry date are all good');\r",
+							"}\r",
+							"\r",
+							"if (getToken === true) {\r",
+							"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    console.log(err ? err : res.json());\r",
+							"        if (err === null) {\r",
+							"            console.log('Saving the token and expiry date')\r",
+							"            var responseJson = res.json();\r",
+							"            pm.environment.set('token_x', responseJson.access_token)\r",
+							"\r",
+							"            console.log(\"LOG\", pm.request.headers);\r",
+							"    \r",
+							"            var expiryDate = new Date();\r",
+							"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+							"            pm.environment.set('token_expiry_X', expiryDate.getTime());\r",
+							"        }\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_x}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzM4NCJ9.eyJzdWIiOiJYIiwiYXV0aG9yaXRpZXMiOlsiU1RBUlRfR0FNRSJdLCJpYXQiOjE2MDEzMjY4MDYsImV4cCI6MTYwMTMzMDQwNn0.MsrFYK5OXuFUmk4flSLgQyhAnfviGcoFrlusnmFiEvRhuMQZExFkk0ZeMH1N3ArPLPM6Xu7__P8S5VtoolqvVa_mK-2E1Bz9Zo1Db0r-4Fo2uVWPTeNADHOAypMmrvgvirkC8qfEBaRUmrK2aN28w6pkLZe_wYwaPCtpN49ycVRKKM-pDkUxhF_UioerI6fot86nHZTcmzhhxYndr89gWbBTkfBUZ_vDmbxKjVAJPLPcwzDEjztzrufMEgyOOyrKYiJnRrj6Q0UskQlhEY7V9XdtWBC0yasuE_v_i58I4AV3NZbPYP4QhXOExZ7qQi7rnb1MFQIzgQnJr8VoTYgCyA",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/tictactoe/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"tictactoe",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "X makes move",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f8e88122-a8f8-496a-a828-2e8ee29f86d1",
+						"exec": [
+							"var Header = require('postman-collection').Header\r",
+							"\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:8080/authenticate',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type:application/json',\r",
+							"  body: {\r",
+							"    mode: 'application/json',\r",
+							"    raw: JSON.stringify(\r",
+							"        {\r",
+							"        \tusername:'X',\r",
+							"        \tpassword:'passwordX'\r",
+							"        })\r",
+							"  }\r",
+							"};\r",
+							"\r",
+							"var getToken = true;\r",
+							"\r",
+							"if (!pm.environment.get('accessTokenExpiry') || \r",
+							"    !pm.environment.get('currentAccessToken')) {\r",
+							"    console.log('Token or expiry date are missing')\r",
+							"} else if (pm.environment.get('accessTokenExpiry') <= (new Date()).getTime()) {\r",
+							"    console.log('Token is expired')\r",
+							"} else {\r",
+							"    getToken = false;\r",
+							"    console.log('Token and expiry date are all good');\r",
+							"}\r",
+							"\r",
+							"if (getToken === true) {\r",
+							"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    console.log(err ? err : res.json());\r",
+							"        if (err === null) {\r",
+							"            console.log('Saving the token and expiry date')\r",
+							"            var responseJson = res.json();\r",
+							"            pm.environment.set('token_x', responseJson.access_token)\r",
+							"\r",
+							"            console.log(\"LOG\", pm.request.headers);\r",
+							"    \r",
+							"            var expiryDate = new Date();\r",
+							"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+							"            pm.environment.set('accessTokenExpiry', expiryDate.getTime());\r",
+							"        }\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_x}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token_x}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"x\": 0,\r\n    \"y\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/tictactoe/move",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"tictactoe",
+						"move"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "O makes move",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "81248870-325b-4104-9944-8f50c9a9b84a",
+						"exec": [
+							"var Header = require('postman-collection').Header\r",
+							"\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:8080/authenticate',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type:application/json',\r",
+							"  body: {\r",
+							"    mode: 'application/json',\r",
+							"    raw: JSON.stringify(\r",
+							"        {\r",
+							"        \tusername:'O',\r",
+							"        \tpassword:'passwordO'\r",
+							"        })\r",
+							"  }\r",
+							"};\r",
+							"\r",
+							"var getToken = true;\r",
+							"\r",
+							"if (!pm.environment.get('accessTokenExpiry') || \r",
+							"    !pm.environment.get('currentAccessToken')) {\r",
+							"    console.log('Token or expiry date are missing')\r",
+							"} else if (pm.environment.get('accessTokenExpiry') <= (new Date()).getTime()) {\r",
+							"    console.log('Token is expired')\r",
+							"} else {\r",
+							"    getToken = false;\r",
+							"    console.log('Token and expiry date are all good');\r",
+							"}\r",
+							"\r",
+							"if (getToken === true) {\r",
+							"    pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    console.log(err ? err : res.json());\r",
+							"        if (err === null) {\r",
+							"            console.log('Saving the token and expiry date')\r",
+							"            var responseJson = res.json();\r",
+							"            pm.environment.set('token_o', responseJson.access_token)\r",
+							"\r",
+							"            console.log(\"LOG\", pm.request.headers);\r",
+							"    \r",
+							"            var expiryDate = new Date();\r",
+							"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);\r",
+							"            pm.environment.set('token_expiry_0', expiryDate.getTime());\r",
+							"        }\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_o}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"x\": 1,\r\n    \"y\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/tictactoe/move",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"tictactoe",
+						"move"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
