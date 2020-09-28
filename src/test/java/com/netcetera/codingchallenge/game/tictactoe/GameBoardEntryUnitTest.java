@@ -16,41 +16,41 @@ class GameBoardEntryUnitTest {
 
     @Test
     void testCreation() {
-        assertEquals(this.entry.getFieldState(), FieldState.EMPTY);
+        assertEquals(this.entry.getFieldMarking(), FieldMarking.EMPTY);
     }
 
     @Test
     void markWithX() {
-        this.entry.mark(FieldState.X);
-        assertEquals(this.entry.getFieldState(), FieldState.X);
+        this.entry.mark(FieldMarking.X);
+        assertEquals(this.entry.getFieldMarking(), FieldMarking.X);
     }
 
     @Test
     void markWithO() {
-        this.entry.mark(FieldState.O);
-        assertEquals(this.entry.getFieldState(), FieldState.O);
+        this.entry.mark(FieldMarking.O);
+        assertEquals(this.entry.getFieldMarking(), FieldMarking.O);
     }
 
     @Test
     void markTwiceFails() {
-        assertTrue(this.entry.mark(FieldState.X));
-        assertFalse(this.entry.mark(FieldState.O));
-        assertNotEquals(this.entry.getFieldState(), FieldState.O);
+        assertTrue(this.entry.mark(FieldMarking.X));
+        assertFalse(this.entry.mark(FieldMarking.O));
+        assertNotEquals(this.entry.getFieldMarking(), FieldMarking.O);
     }
 
     @Test
     void getFieldState() {
-        assertNotNull(this.entry.getFieldState());
+        assertNotNull(this.entry.getFieldMarking());
     }
 
     @Test
     void testToString() {
         final GameBoardEntry x = new GameBoardEntry();
-        x.mark(FieldState.X);
+        x.mark(FieldMarking.X);
         assertEquals(x.toString(), "x");
 
         final GameBoardEntry o = new GameBoardEntry();
-        o.mark(FieldState.O);
+        o.mark(FieldMarking.O);
         assertEquals(o.toString(), "o");
 
         final GameBoardEntry empty = new GameBoardEntry();
@@ -63,7 +63,7 @@ class GameBoardEntryUnitTest {
         final GameBoardEntry other = new GameBoardEntry();
         assertTrue(one.equals(other));
 
-        other.mark(FieldState.O);
+        other.mark(FieldMarking.O);
         assertFalse(one.equals(other));
     }
 }
