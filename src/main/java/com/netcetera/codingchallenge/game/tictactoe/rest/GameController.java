@@ -31,7 +31,7 @@ public class GameController {
     }
 
     private ResponseEntity<String> handleMoveOutcome(final MoveOutcome moveOutcome) {
-        final String toReturn = this.gameService.getGameDisplayState() + "\n" + moveOutcome.getDescription();
+        final String toReturn = this.gameService.displayState() + "\n" + moveOutcome.getDescription();
 
         if (!moveOutcome.isValid()) {
             return ResponseEntity.badRequest().body(toReturn);

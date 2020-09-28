@@ -16,8 +16,8 @@ class GameBoardImplUnitTest {
 
     @Test
     void displayState() {
-        final StringDisplayableGameBoard stringDisplayableGameBoard = (StringDisplayableGameBoard) this.gameBoard;
-        assertNotNull(stringDisplayableGameBoard.displayState());
+        final GameStateDisplayable gameStateDisplayable = (GameStateDisplayable) this.gameBoard;
+        assertNotNull(gameStateDisplayable.displayState());
     }
 
     @Test

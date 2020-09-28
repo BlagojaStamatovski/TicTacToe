@@ -1,5 +1,5 @@
 package com.netcetera.codingchallenge.game.tictactoe;
 
-public interface StringDisplayableGameBoard {
+public interface GameStateDisplayable {
     String displayState();
 }

@@ -2,7 +2,7 @@ package com.netcetera.codingchallenge.game.tictactoe;
 
 import lombok.Getter;
 
-public class GameBoardImpl implements StringDisplayableGameBoard, GameBoard {
+public class GameBoardImpl implements GameBoard {
     private final GameBoardEntry[][] board;
     private final int size;
     private int movesMade = 0;
