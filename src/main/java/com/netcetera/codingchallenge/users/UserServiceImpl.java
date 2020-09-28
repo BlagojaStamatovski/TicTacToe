@@ -1,6 +1,8 @@
 package com.netcetera.codingchallenge.users;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +33,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addAuthorityToUser(final String userAuthorityId, final String userId) {
+    public boolean addAuthorityToUser(final String userAuthorityId, final String userId) {
         final User user;
         final UserAuthority userAuthority;
 
         if (!this.userRepository.existsById(userId)) {
-            return;
+            return false;
         } else {
             user = this.userRepository.getOne(userId);
         }
@@ -47,6 +49,17 @@ public class UserServiceImpl implements UserService {
 
         userAuthority = this.userAuthorityRepository.getOne(userAuthorityId);
         user.getUserAuthorities().add(userAuthority);
-        this.userRepository.save(user);
+
+        return (this.userRepository.save(user) != null);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        final UserDetails userDetails = this.userRepository.getOne(username);
+        if (userDetails == null) {
+            throw new UsernameNotFoundException(String.format("User with username %s could not be found", username));
+        } else {
+            return userDetails;
+        }
     }
 }
