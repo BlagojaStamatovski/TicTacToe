@@ -20,7 +20,7 @@ The API does not produce a JSON response because in this case that improves the 
 
 Once the game is over, user X can start a new game. 
 
-## Potential improvenets
+### Potential improvenets
 1. Persist data of games into database, tie with two players, add game sessions, etc.
 2. Implement scoreboards.
 3. Make a "Single player vs the Computer" mode.
