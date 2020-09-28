@@ -10,7 +10,7 @@ import java.security.Principal;
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
-    private GameBoard gameBoard;
+    private GameBoardImpl gameBoard;
     private final UserService userService;
     private final int gameBoardSize = 3;
     private FieldMarking lastPlayed;
@@ -20,7 +20,7 @@ public class GameServiceImpl implements GameService {
         if (this.gameBoard != null && !this.gameBoard.isOver()) {
             return new MoveOutcome(false, "A game is already in progress.");
         }
-        this.gameBoard = new GameBoard(this.gameBoardSize);
+        this.gameBoard = new GameBoardImpl(this.gameBoardSize);
         this.lastPlayed = null;
         return new MoveOutcome(true, "A new game has been started.");
     }
