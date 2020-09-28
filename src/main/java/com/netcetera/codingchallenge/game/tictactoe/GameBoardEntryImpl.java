@@ -3,15 +3,14 @@ package com.netcetera.codingchallenge.game.tictactoe;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.io.Serializable;
-
 @EqualsAndHashCode
-public class GameBoardEntry implements Serializable {
+public class GameBoardEntryImpl implements GameBoardEntry {
     private static final long serialVersionUID = 5638513410322147931L;
 
     @Getter
     private FieldMarking fieldMarking = FieldMarking.EMPTY;
 
+    @Override
     public boolean mark(final FieldMarking fieldMarking) {
         if (!this.isPlayed()) {
             this.fieldMarking = fieldMarking;
