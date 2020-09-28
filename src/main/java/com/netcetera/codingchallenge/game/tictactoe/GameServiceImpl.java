@@ -27,7 +27,9 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public MoveOutcome makeMove(final int x, final int y, final Principal principal) {
-        if (this.gameBoard.isOver()) {
+        if (this.gameBoard == null) {
+            return new MoveOutcome(false, "The game has not been started.");
+        } else if (this.gameBoard.isOver()) {
             return new MoveOutcome(false, "Game has already ended. Outcome: ." + this.gameBoard.getState());
         } else {
             final FieldMarking markWith = this.getFieldStateFromPrincipal(principal);
