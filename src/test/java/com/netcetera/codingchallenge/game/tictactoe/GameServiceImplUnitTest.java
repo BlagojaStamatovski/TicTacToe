@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 class GameServiceImplUnitTest {
 
+    private GameService gameService;
 
     @Test
     void startGame() {
